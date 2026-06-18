@@ -10,7 +10,7 @@ const version = pkg.version;
 const run = ({ endPointsJsPath, showLog, inActionName, inFolderName, inGetType }) => {
   const input = parseInput({
     jsFilePath: endPointsJsPath, showLog,
-    inActionName, inFolderName
+    inActionName, inFolderName, inGetType
   });
 
   if (input.cmd === "--help" || input.cmd === "-h" || input.cmd === "help") return showUsage(version);

@@ -4,6 +4,7 @@ import checkLines from "./checkLines.json" with {type: "json"};
 const alterLines = ({ inActionName, inFolderName, inGetType }) => {
     let checkLinesData = checkLines;
     let localCheckLines = checkLinesData[inGetType];
+    console.log("aaaaaaaaaa : ", inActionName, inFolderName, inGetType);
 
     localCheckLines.importLines.toInsertLine = localCheckLines.importLines.toInsertLine.replaceAll("${folderName}", inFolderName);
     localCheckLines.importLines.duplicationCheck = localCheckLines.importLines.duplicationCheck.replaceAll("${folderName}", inFolderName).replaceAll("'", '"');
