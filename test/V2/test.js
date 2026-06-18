@@ -6,7 +6,8 @@ const startFunc = async () => {
         showLog: true,
         endPointsJsPath: path.join(process.cwd(), "end-points.js"),
         inActionName: "ToTest",
-        inFolderName: "Fold1"
+        inFolderName: "Fold1",
+        inGetType: "simple"
     });
 };
 

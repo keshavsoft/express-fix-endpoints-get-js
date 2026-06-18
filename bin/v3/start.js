@@ -7,7 +7,7 @@ import pkg from '../../package.json' with { type: 'json' };
 
 const version = pkg.version;
 
-const run = ({ endPointsJsPath, showLog, inActionName, inFolderName }) => {
+const run = ({ endPointsJsPath, showLog, inActionName, inFolderName, inGetType }) => {
   const input = parseInput({
     jsFilePath: endPointsJsPath, showLog,
     inActionName, inFolderName

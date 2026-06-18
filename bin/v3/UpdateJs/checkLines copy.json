@@ -1,0 +1,18 @@
+{
+    "importLines": {
+        "toInsertLine": "import funcFrom${folderName} from './${folderName}/controller.js';",
+        "duplicationCheck": "from './${folderName}/controller.js'",
+        "insertAfter": [
+            "import funcFrom",
+            "import express"
+        ]
+    },
+    "useLines": {
+        "toInsertLine": "router.get('/${endpoint}', (req, res) => funcFrom${folderName}({ req, res, inTablePath: tablePath }));",
+        "duplicationCheck": "router.get('/${endpoint}'",
+        "insertAfter": [
+            "router.",
+            "const router = "
+        ]
+    }
+}

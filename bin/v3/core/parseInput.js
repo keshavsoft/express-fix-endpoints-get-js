@@ -1,4 +1,4 @@
-export default function parseInput({ jsFilePath,
+export default function parseInput({ jsFilePath, inGetType = "simple",
     showLog, inActionName = "KeshavSoftAction", inFolderName = "KeshavSoftFolderName" }) {
 
     const [...args] = process.argv.slice(2);
@@ -8,6 +8,6 @@ export default function parseInput({ jsFilePath,
             ? showLog
             : args[1] === "true",
         inJsFilePath: jsFilePath || process.cwd(),
-        inActionName, inFolderName
+        inActionName, inFolderName, inGetType
     };
 };

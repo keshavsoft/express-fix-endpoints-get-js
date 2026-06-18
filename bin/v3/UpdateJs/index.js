@@ -1,8 +1,9 @@
 import fixAnyJs from "express-fix-any-js";
 import checkLines from "./checkLines.json" with {type: "json"};
 
-const alterLines = ({ inActionName, inFolderName }) => {
-    let localCheckLines = checkLines;
+const alterLines = ({ inActionName, inFolderName, inGetType }) => {
+    let checkLinesData = checkLines;
+    let localCheckLines = checkLinesData[inGetType];
 
     localCheckLines.importLines.toInsertLine = localCheckLines.importLines.toInsertLine.replaceAll("${folderName}", inFolderName);
     localCheckLines.importLines.duplicationCheck = localCheckLines.importLines.duplicationCheck.replaceAll("${folderName}", inFolderName).replaceAll("'", '"');
@@ -15,9 +16,9 @@ const alterLines = ({ inActionName, inFolderName }) => {
     return localCheckLines;
 };
 
-const startFunc = ({ inJsFilePath, inActionName, inFolderName, showLog = false }) => {
+const startFunc = ({ inJsFilePath, inActionName, inFolderName, showLog = false, inGetType }) => {
 
-    const localCheckLines = alterLines({ inActionName, inFolderName });
+    const localCheckLines = alterLines({ inActionName, inFolderName, inGetType });
 
     fixAnyJs({
         showLog,
