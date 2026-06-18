@@ -7,9 +7,11 @@ import pkg from '../../package.json' with { type: 'json' };
 
 const version = pkg.version;
 
-const run = ({ endPointsJsPath, showLog, inActionName }) => {
-  const input = parseInput({ jsFilePath: endPointsJsPath, showLog, inActionName });
-  console.log("input : ", endPointsJsPath, input);
+const run = ({ endPointsJsPath, showLog, inActionName, inFolderName }) => {
+  const input = parseInput({
+    jsFilePath: endPointsJsPath, showLog,
+    inActionName, inFolderName
+  });
 
   if (input.cmd === "--help" || input.cmd === "-h" || input.cmd === "help") return showUsage(version);
 
