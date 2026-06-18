@@ -5,7 +5,8 @@ const startFunc = async () => {
     await index({
         showLog: true,
         endPointsJsPath: path.join(process.cwd(), "end-points.js"),
-        inActionName: "ToTest"
+        inActionName: "ToTest",
+        inFolderName: "Fold1"
     });
 };
 
