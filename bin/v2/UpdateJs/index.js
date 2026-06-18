@@ -17,7 +17,7 @@ const alterLines = ({ inActionName, inFolderName }) => {
 
 const startFunc = ({ inJsFilePath, inActionName, inFolderName, showLog = false }) => {
 
-    const localCheckLines = alterLines({ inActionName });
+    const localCheckLines = alterLines({ inActionName, inFolderName });
 
     fixAnyJs({
         showLog,
