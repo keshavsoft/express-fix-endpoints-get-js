@@ -5,6 +5,7 @@ on:
     secrets:
       REPO_DISPATCH_TOKEN:
         required: true
+  workflow_dispatch:
 
 jobs:
   notify-dependents:
