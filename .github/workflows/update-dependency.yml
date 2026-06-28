@@ -17,7 +17,7 @@ jobs:
 
       - run: npm install
 
-      - run: npm update express-fix-any-js
+      - run: npm install express-fix-any-js@latest
 
       - name: Commit changes
         run: |
