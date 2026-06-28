@@ -3,12 +3,14 @@ name: Update dependency
 on:
   repository_dispatch:
     types: [dependency-updated]
+  workflow_dispatch:
 
 jobs:
   update:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      pull-requests: write
 
     steps:
       - uses: actions/checkout@v4
@@ -17,20 +19,20 @@ jobs:
         with:
           node-version: 20
 
+      - name: Show Node and NPM versions
+        run: |
+          node -v
+          npm -v
+
       - run: npm install
 
       - run: npm install express-fix-any-js@latest
 
-      - name: Commit changes
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-
-          git add package.json package-lock.json
-
-          git diff --cached --quiet || git commit -m "Update express-fix-any-js"
-
-      - name: Push changes
-        run: |
-          git pull --rebase origin main
-          git push origin HEAD:main
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: Update express-fix-any-js
+          title: Update express-fix-any-js
+          body: Update express-fix-any-js to latest
+          branch: update-express-fix-any-js
+          delete-branch: true
