@@ -13,4 +13,17 @@ const load = async ({ endPointsJsPath, inActionName, showLog, inFolderName,
     });
 };
 
-export default load;
+const getCheckLinesKeys = async () => {
+    const v = getLatestVersion();
+    const { checkLinesKeys } = await import(`./bin/${v}/UpdateJs/index.js`);
+    return checkLinesKeys;
+};
+
+const getCheckLines = async ({ inActionName, inFolderName, inGetType, inColumnName }) => {
+    const v = getLatestVersion();
+    const { alterLines } = await import(`./bin/${v}/UpdateJs/index.js`);
+    return alterLines({ inActionName, inFolderName, inGetType, inColumnName });
+};
+
+export { getCheckLinesKeys, getCheckLines };
+export default load;

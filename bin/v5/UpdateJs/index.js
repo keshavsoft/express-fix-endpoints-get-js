@@ -1,22 +1,34 @@
 import fixAnyJs from "express-fix-any-js";
 import checkLines from "./checkLines.json" with {type: "json"};
 
+const checkLinesKeys = Object.keys(checkLines);
+
 const alterLines = ({ inActionName, inFolderName, inGetType,
     inColumnName
 }) => {
-
     let checkLinesData = checkLines;
-    let localCheckLines = checkLinesData[inGetType];
-    // console.log("aaaaaaaaaa : ", inActionName, inFolderName, inGetType);
+    if (!checkLinesData[inGetType]) {
+        throw new Error(`Invalid inGetType: ${inGetType}. Must be one of: ${checkLinesKeys.join(", ")}`);
+    }
 
-    localCheckLines.importLines.toInsertLine = localCheckLines.importLines.toInsertLine.replaceAll("${folderName}", inFolderName);
-    localCheckLines.importLines.duplicationCheck = localCheckLines.importLines.duplicationCheck.replaceAll("${folderName}", inFolderName).replaceAll("'", '"');
+    // Deep clone the configuration to avoid mutating the cached JSON import.
+    let localCheckLines = JSON.parse(JSON.stringify(checkLinesData[inGetType]));
 
-    localCheckLines.useLines.toInsertLine = localCheckLines.useLines.toInsertLine.replaceAll("${endpoint}", inActionName);
-    localCheckLines.useLines.toInsertLine = localCheckLines.useLines.toInsertLine.replaceAll("${folderName}", inFolderName);
-    localCheckLines.useLines.toInsertLine = localCheckLines.useLines.toInsertLine.replaceAll("${inColumnName}", inColumnName);
+    if (localCheckLines.importLines && localCheckLines.importLines.toInsertLine) {
+        localCheckLines.importLines.toInsertLine = localCheckLines.importLines.toInsertLine.replaceAll("${folderName}", inFolderName);
+    }
+    if (localCheckLines.importLines && localCheckLines.importLines.duplicationCheck) {
+        localCheckLines.importLines.duplicationCheck = localCheckLines.importLines.duplicationCheck.replaceAll("${folderName}", inFolderName).replaceAll("'", '"');
+    }
 
-    localCheckLines.useLines.duplicationCheck = localCheckLines.useLines.duplicationCheck.replaceAll("${endpoint}", inActionName).replaceAll("'", '"');
+    if (localCheckLines.useLines && localCheckLines.useLines.toInsertLine) {
+        localCheckLines.useLines.toInsertLine = localCheckLines.useLines.toInsertLine.replaceAll("${endpoint}", inActionName);
+        localCheckLines.useLines.toInsertLine = localCheckLines.useLines.toInsertLine.replaceAll("${folderName}", inFolderName);
+        localCheckLines.useLines.toInsertLine = localCheckLines.useLines.toInsertLine.replaceAll("${inColumnName}", inColumnName);
+    }
+    if (localCheckLines.useLines && localCheckLines.useLines.duplicationCheck) {
+        localCheckLines.useLines.duplicationCheck = localCheckLines.useLines.duplicationCheck.replaceAll("${endpoint}", inActionName).replaceAll("'", '"');
+    }
 
     return localCheckLines;
 };
@@ -25,7 +37,7 @@ const startFunc = ({ inJsFilePath, inActionName, inFolderName, showLog = false, 
     inColumnName
 }) => {
 
-    const localCheckLines = alterLines({ inActionName, inFolderName, inGetType });
+    const localCheckLines = alterLines({ inActionName, inFolderName, inGetType, inColumnName });
 
     fixAnyJs({
         showLog,
@@ -36,4 +48,5 @@ const startFunc = ({ inJsFilePath, inActionName, inFolderName, showLog = false, 
     return false;
 };
 
-export default startFunc;
+export { alterLines, checkLinesKeys };
+export default startFunc;
