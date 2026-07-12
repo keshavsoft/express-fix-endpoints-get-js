@@ -16,7 +16,18 @@ const run = ({ endPointsJsPath, showLog, inActionName, inFolderName, inGetType,
     inActionName, inFolderName, inGetType, inColumnName
   });
 
-  if (input.cmd === "--help" || input.cmd === "-h" || input.cmd === "help") return showUsage(version);
+  if (!endPointsJsPath) {
+    if (!input.cmd || input.cmd === "--help" || input.cmd === "-h" || input.cmd === "help") {
+      return showUsage(version);
+    }
+
+    const validCommands = ["ShowKeys", "ShowValue"];
+    if (!validCommands.includes(input.cmd)) {
+      console.error(`\x1b[31mError: Invalid command "${input.cmd}"\x1b[0m`);
+      showUsage(version);
+      process.exit(1);
+    }
+  }
 
   if (input.cmd === "ShowKeys") {
     console.log(checkLinesKeys);
