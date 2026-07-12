@@ -28,6 +28,8 @@ ${y}Usage:${r}
   ${g}npx @keshavsoft/kschema-api-gen${r} <command> [options]
 
 ${y}Commands:${r}
+  ${g}ShowKeys${r}          Show the list of supported route types
+  ${g}ShowValue <key>${r}   Show the configuration details for a specific route type
   ${g}StartEndPoint${r}     Initialize a new folder and files
   ${g}AddSubRoute${r}       Initialize a new folder and files
   ${g}AddTableName${r}      Initialize a new folder and files for TableName
@@ -37,6 +39,8 @@ ${y}Commands:${r}
   ${g}InsertApi${r}         Creates new InsertApi end point and hooks to app.js
   
 ${y}Examples:${r}
+  ${gray}npx @keshavsoft/kschema-api-gen ShowKeys${r}
+  ${gray}npx @keshavsoft/kschema-api-gen ShowValue simple${r}
   ${gray}npx @keshavsoft/kschema-api-gen StartEndPoint${r}
   ${gray}npx @keshavsoft/kschema-api-gen AddSubRoute${r}
   ${gray}npx @keshavsoft/kschema-api-gen AddTableName${r}
@@ -47,4 +51,5 @@ ${y}Examples:${r}
 ${y}Tip:${r}
   ${gray}npm i -g @keshavsoft/kschema-api-gen${r}
 `);
+
 }

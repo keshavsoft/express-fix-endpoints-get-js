@@ -39,35 +39,50 @@ const keys = await getCheckLinesKeys();
 // Returns: ["simple", "withParams", "withParamsDynamic"]
 ```
 
-### `getCheckLines({ inActionName, inFolderName, inGetType, inColumnName })`
-Returns the resolved checkLines instruction block (what imports and useLines templates will be generated) without modifying any files.
+### `getCheckLinesValue({ inKey })`
+Returns the un-interpolated checkLines configuration structure for a specific key.
 ```javascript
-import { getCheckLines } from "express-fix-endpoints-get-js";
+import { getCheckLinesValue } from "express-fix-endpoints-get-js";
 
-const result = await getCheckLines({
-  inGetType: "simple",
-  inActionName: "ShowAll",
-  inFolderName: "ShowAll"
-});
+const result = await getCheckLinesValue({ inKey: "simple" });
 ```
 
 ---
 
-## 🛠️ Insertion Types & Configurations Sent
+## 💻 CLI Commands
 
-The tool resolves specific import templates and route declarations to send to the modifying engine depending on the requested type:
+You can run these commands via `npx` or using globally/locally installed scripts:
+
+### `ShowKeys`
+Prints the list of all supported route types:
+```bash
+npx @keshavsoft/kschema-api-gen ShowKeys
+# Output: [ 'simple', 'withParams', 'withParamsDynamic' ]
+```
+
+### `ShowValue <key>`
+Prints the configuration details (imports, matching rules, output structures) for a specific route type:
+```bash
+npx @keshavsoft/kschema-api-gen ShowValue simple
+```
+
+---
+
+## 🛠️ Insertion Types & Configurations
+
+The tool resolves specific import templates and route declarations depending on the requested type:
 
 ### 1. Simple GET Route (`simple`)
-- **Imports Sent**: `import funcFrom[FolderName] from './[FolderName]/controller.js';`
-- **Routes Sent**: `router.get('/[endpoint]', (req, res) => funcFrom[FolderName]({ req, res, inTablePath: tablePath }));`
+- **Imports**: `import funcFrom[FolderName] from './[FolderName]/controller.js';`
+- **Routes**: `router.get('/[endpoint]', (req, res) => funcFrom[FolderName]({ req, res, inTablePath: tablePath }));`
 
 ### 2. GET Route with Primary Key Parameter (`withParams`)
-- **Imports Sent**: `import funcFrom[FolderName] from './[FolderName]/controller.js';`
-- **Routes Sent**: `router.get('/[endpoint]/:pk', (req, res) => funcFrom[FolderName]({ req, res, inTablePath: tablePath }));`
+- **Imports**: `import funcFrom[FolderName] from './[FolderName]/controller.js';`
+- **Routes**: `router.get('/[endpoint]/:pk', (req, res) => funcFrom[FolderName]({ req, res, inTablePath: tablePath }));`
 
 ### 3. GET Route with Dynamic Column Parameter (`withParamsDynamic`)
-- **Imports Sent**: `import funcFrom[FolderName] from './[FolderName]/controller.js';`
-- **Routes Sent**: `router.get('/[endpoint]/:[ColumnName]', (req, res) => funcFrom[FolderName]({ req, res, inTablePath: tablePath }));`
+- **Imports**: `import funcFrom[FolderName] from './[FolderName]/controller.js';`
+- **Routes**: `router.get('/[endpoint]/:[ColumnName]', (req, res) => funcFrom[FolderName]({ req, res, inTablePath: tablePath }));`
 
 ---
 
