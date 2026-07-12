@@ -19,11 +19,11 @@ const getCheckLinesKeys = async () => {
     return checkLinesKeys;
 };
 
-const getCheckLines = async ({ inActionName, inFolderName, inGetType, inColumnName }) => {
+const getCheckLinesValue = async ({ inKey }) => {
     const v = getLatestVersion();
-    const { alterLines } = await import(`./bin/${v}/UpdateJs/index.js`);
-    return alterLines({ inActionName, inFolderName, inGetType, inColumnName });
+    const { getCheckLinesValue } = await import(`./bin/${v}/UpdateJs/index.js`);
+    return getCheckLinesValue({ inKey });
 };
 
-export { getCheckLinesKeys, getCheckLines };
-export default load;
+export { getCheckLinesKeys, getCheckLinesValue };
+export default load;

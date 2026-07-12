@@ -33,6 +33,14 @@ const alterLines = ({ inActionName, inFolderName, inGetType,
     return localCheckLines;
 };
 
+const getCheckLinesValue = ({ inKey }) => {
+    if (!(inKey in checkLines)) {
+        throw new Error(`Invalid inKey: ${inKey}. Must be one of: ${checkLinesKeys.join(", ")}`);
+    };
+
+    return checkLines[inKey];
+};
+
 const startFunc = ({ inJsFilePath, inActionName, inFolderName, showLog = false, inGetType,
     inColumnName
 }) => {
@@ -48,5 +56,5 @@ const startFunc = ({ inJsFilePath, inActionName, inFolderName, showLog = false, 
     return false;
 };
 
-export { alterLines, checkLinesKeys };
-export default startFunc;
+export { getCheckLinesValue, checkLinesKeys };
+export default startFunc;
