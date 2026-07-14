@@ -36,7 +36,14 @@ jobs:
           node -v
           npm -v
       - run: npm ci
-      - run: npm publish
+      - run: |
+          PACKAGE_NAME=$(node -p "require('./package.json').name")
+          PACKAGE_VERSION=$(node -p "require('./package.json').version")
+          if npm view "${PACKAGE_NAME}@${PACKAGE_VERSION}" version >/dev/null 2>&1; then
+            echo "Version ${PACKAGE_VERSION} of ${PACKAGE_NAME} is already published on npm. Skipping publish."
+          else
+            npm publish
+          fi
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
 
