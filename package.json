@@ -1,6 +1,6 @@
 {
   "name": "express-fix-endpoints-get-js",
-  "version": "1.5.8",
+  "version": "1.5.9",
   "description": "CLI to build for appjs, the endpoints",
   "keywords": [
     "cli",
