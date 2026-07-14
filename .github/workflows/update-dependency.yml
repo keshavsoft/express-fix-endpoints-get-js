@@ -28,11 +28,14 @@ jobs:
 
       - run: npm install express-fix-any-js@latest
 
-      - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: Update express-fix-any-js
-          title: Update express-fix-any-js
-          body: Update express-fix-any-js to latest
-          branch: update-express-fix-any-js
-          delete-branch: true
+      - name: Commit and push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add package.json package-lock.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update express-fix-any-js to latest"
+            git push
+          else
+            echo "No changes to commit"
+          fi
