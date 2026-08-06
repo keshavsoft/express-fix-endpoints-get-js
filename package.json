@@ -1,6 +1,6 @@
 {
   "name": "express-fix-endpoints-get-js",
-  "version": "1.5.32",
+  "version": "1.5.33",
   "description": "CLI to build for appjs, the endpoints",
   "keywords": [
     "cli",
@@ -10,7 +10,7 @@
     "project-generator"
   ],
   "dependencies": {
-    "express-fix-any-js": "^1.28.6"
+    "express-fix-any-js": "^1.28.7"
   },
   "type": "module",
   "exports": {
